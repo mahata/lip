@@ -5,6 +5,6 @@ from backtrackparser import BacktrackParser
 from sys import argv
 
 if __name__ == "__main__":
-    lexer = BacktrackLexer(argv[1])
+    lexer = BacktrackLexer(argv[1] + "\0")
     parser = BacktrackParser(lexer)
-    parser.list()
+    parser.stat()

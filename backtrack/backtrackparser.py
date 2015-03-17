@@ -12,11 +12,12 @@ class BacktrackParser(Parser):
         """
         if self.speculate_stat_alt1():  # Attempt alternative 1: list EOF
             self.list()
-            self.match(BacktrackLexer.EOF_TYPE)
+            self.match(BacktrackLexer.EOF_KIND)
         elif self.speculate_stat_alt2():  # Attempt alternative 2: assign EOF
             self.assign()
-            self.match(BacktrackLexer.EOF_TYPE)
-        raise Exception("expecting stat, but found " + self.LT(1))
+            self.match(BacktrackLexer.EOF_KIND)
+        else:
+            raise Exception("expecting stat, but found (%s)" % (self.LT(1)))
 
     def speculate_stat_alt1(self):
         """
@@ -26,7 +27,7 @@ class BacktrackParser(Parser):
         success = True
         try:
             self.list()
-            self.match(BacktrackLexer.EOF_TYPE)
+            self.match(BacktrackLexer.EOF_KIND)
         except Exception:
             success = False
         self.release()  # Rewind anyway
@@ -40,7 +41,7 @@ class BacktrackParser(Parser):
         success = True
         try:
             self.assign()
-            self.match(Lexer.EOF_TYPE)
+            self.match(BacktrackLexer.EOF_KIND)
         except Exception:
             success = False
         self.release()  # Rewind anyway

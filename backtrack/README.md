@@ -16,3 +16,11 @@ NAME     : LETTER+ ;
 LETTER   : 'a'..'z'|'A'..'Z' ;
 WS       : (' '|'\t'|'\n'|'\r')+ {skip();} ;
 ```
+
+## Example
+
+```
+python3 main.py "[a, b]"
+python3 main.py "[a, b] = [c, d]"
+python3 main.py "[a, b"  # Error
+```
